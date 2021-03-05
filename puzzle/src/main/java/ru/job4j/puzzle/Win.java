@@ -5,51 +5,39 @@ package ru.job4j.puzzle;
  */
 public class Win {
     public static boolean check(int[][] board) {
-        return (checkVertical(board) || checkHorizontal(board));
-    }
-    public static boolean checkVertical(int[][] board) {
+
         boolean rsl = false;
-        boolean[] step = new boolean[board.length];
         for (int i = 0; i < board.length; i++) {
-            boolean condition = false;
-            for (int j = 0; j < board.length; j++) {
-                if (board[j][i] != 1) {
-                    condition = true;
-                    break;
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == 1 && (checkHorizontal(board, i) || checkVertical(board, j))) {
+                    rsl = true;
                 }
-            }
-            if (!condition) {
-                step[i] = true;
-            }
-        }
-        for (boolean temp : step) {
-            if (temp == true) {
-                rsl = true;
             }
         }
         return rsl;
     }
 
-    public static boolean checkHorizontal(int[][] board) {
-        boolean rsl = false;
-        boolean[] step = new boolean[board.length];
+    public static boolean checkVertical(int[][] board, int column) {
+        boolean rsl = true;
         for (int i = 0; i < board.length; i++) {
-            boolean condition = false;
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] != 1) {
-                    condition = true;
-                    break;
-                }
-            }
-            if (!condition) {
-                step[i] = true;
-            }
-        }
-        for (boolean temp : step) {
-            if (temp == true) {
-                rsl = true;
+            if (board[i][column] != 1) {
+                rsl = false;
+                break;
             }
         }
         return rsl;
+    }
+
+    public static boolean checkHorizontal(int[][] board, int row) {
+        boolean rsl = true;
+        for (int i = 0; i < board[row].length; i++) {
+             if (board[row][i] != 1) {
+                 rsl = false;
+                 break;
+             }
+        }
+
+        return rsl;
+
     }
 }
